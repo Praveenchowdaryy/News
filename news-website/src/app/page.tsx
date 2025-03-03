@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"} min-h-screen p-6 max-w-5xl mx-auto`}>
       <div className="flex justify-between items-center mb-6">
-      <h1 className="text-3xl font-bold">📰 Praveen Today&apos;s News</h1>
+      <h1 className="text-3xl font-bold">📰 Today&apos;s News</h1>
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="p-2 rounded-md border transition"
