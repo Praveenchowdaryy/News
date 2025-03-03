@@ -2,9 +2,14 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+interface Article {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage?: string;
+}
 export default function Home() {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [category, setCategory] = useState("general");
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,7 +19,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   const categories = ["general", "business", "entertainment", "health", "science", "sports", "technology"];
-  const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+  const apiKey = "4f37259a4fb945dfa1d66d8ef0bfe5fa";
 
   useEffect(() => {
     async function fetchNews() {
@@ -46,9 +51,9 @@ export default function Home() {
 
   useEffect(() => {
     if (query && !searchHistory.includes(query)) {
-      setSearchHistory((prev) => [...prev, query].slice(-5)); // Keep only last 5 searches
+      setSearchHistory((prev) => [...prev, query].slice(-5));
     }
-  }, [query]);
+  }, [query, searchHistory]);
 
   const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = event.target.value;
@@ -63,7 +68,7 @@ export default function Home() {
   return (
     <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"} min-h-screen p-6 max-w-5xl mx-auto`}>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">📰 Today's News</h1>
+      <h1 className="text-3xl font-bold">📰 Praveen Today&apos;s News</h1>
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="p-2 rounded-md border transition"
@@ -143,7 +148,7 @@ export default function Home() {
       <AnimatePresence>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
           {articles.length > 0 ? (
-            articles.map((article: any, index: number) => (
+            articles.map((article: Article, index: number) => (
               <motion.div
                 key={article.url}
                 className="border rounded-lg shadow-md p-4 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
